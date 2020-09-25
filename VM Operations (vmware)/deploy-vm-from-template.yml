@@ -1,29 +1,33 @@
-- name: "Create a virtual machine from a template name as {{ vm_name }}"      
-  vmware_guest:        
-    hostname: "{{ vm_hostName }}"        
-    username: "{{ UserName }}"        
-    password: "{{ password }}"        
-    validate_certs: no        
-    datacenter:  "{{ vm_datacenter }}"        
-    datastore: "{{ vm_datastore }}"        
-    state: poweredon        
-    folder: "/{{ vm_folder }}"        
-    template: "{{ vm_template_name }}"        
-    name: "{{ vm_name }}"        
-    cluster: "{{ vm_cluster }}"        
-    annotation: "{{ vm_annotation }}"        
-    networks:        
-    - name: "{{ vm_network_name }}"          
-      ip: "{{ vm_ipaddress }}"          
-      netmask: "{{ vm_netmask }}"         
-      gateway: "{{ vm_gateway }}"        
-    hardware:          
-      memory_mb: "{{ vm_memory_mb }}"          
-      num_cpus: "{{ vm_num_cpus }}"        
-    customization:         
-      domain: "{{ vm_domain }}"          
-      dns_servers:            
-        - "{{ dns_name1 }}"           
-        - "{{ dns_name2 }}"           
-        - "{{ dns_name3 }}"           
-        - "{{ dns_name4 }}"           
+
+- name: DNS ZONE Records   
+  hosts: all   
+  tasks:   
+    - name: "Create a virtual machine from a template name as {{ vm_name }}"      
+      vmware_guest:        
+        hostname: "{{ vm_hostName }}"        
+        username: "{{ UserName }}"        
+        password: "{{ password }}"        
+        validate_certs: no        
+        datacenter:  "{{ vm_datacenter }}"        
+        datastore: "{{ vm_datastore }}"        
+        state: poweredon        
+        folder: "/{{ vm_folder }}"        
+        template: "{{ vm_template_name }}"        
+        name: "{{ vm_name }}"        
+        cluster: "{{ vm_cluster }}"        
+        annotation: "{{ vm_annotation }}"        
+        networks:        
+        - name: "{{ vm_network_name }}"          
+          ip: "{{ vm_ipaddress }}"          
+          netmask: "{{ vm_netmask }}"         
+          gateway: "{{ vm_gateway }}"        
+        hardware:          
+          memory_mb: "{{ vm_memory_mb }}"          
+          num_cpus: "{{ vm_num_cpus }}"        
+        customization:         
+          domain: "{{ vm_domain }}"          
+          dns_servers:            
+            - "{{ dns_name1 }}"           
+            - "{{ dns_name2 }}"           
+            - "{{ dns_name3 }}"           
+            - "{{ dns_name4 }}"           

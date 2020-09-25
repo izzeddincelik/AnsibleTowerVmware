@@ -1,0 +1,34 @@
+- name: Get First IP Address from Solarwinds   
+  hosts: all   
+  tasks:     
+    - name: Reserve the ip address from SolarWinds       
+      uri:         
+        url: "{{ url }}/SolarWinds/InformationService/v3/Json/Invoke/IPAM.SubnetManagement/ChangeIpStatus"         
+        validate_certs: no         
+        force_basic_auth: yes         
+        user: "{{ username }}"         
+        password: "{{ pass }}"         
+        follow_redirects: none         
+        method: POST         
+        headers:           
+          Content-Type: "application/json"           
+          Accept: "application/json"         
+        body_format: json         
+        body: '{ "ipAddress": "{{ vm_ipaddress }}", "status": "Reserved" }'       
+      register: reservedIPInfo
+
+    - name: Available the ip address from Solarwinds       
+      uri:         
+        url: "{{ url }}/SolarWinds/InformationService/v3/Json/Invoke/IPAM.SubnetManagement/ChangeIpStatus"         
+        validate_certs: no         
+        force_basic_auth: yes         
+        user: "{{ username }}"         
+        password: "{{ pass }}"         
+        follow_redirects: none         
+        method: POST         
+        headers:           
+          Content-Type: "application/json"           
+          Accept: "application/json"         
+        body_format: json         
+        body: '{ "ipAddress": "{{ vm_ipaddress }}", "status": "Available" }'       
+      register: availableIPInfo

@@ -1,0 +1,8 @@
+- name: Convert Current Time Zone to Local Zone e.g. GMT +3  
+  hosts: all   
+  tasks:   
+  - name: "GMT + 3 Time zone for Ansible Tower"       
+    set_stats:         
+      data:             #format is D.M.Y H:M:S , then you can convert any format you want
+        jobIDCentrifyZone: "{{ tower_job_id }}"           # Adding (3600 *3) is increasing your current time for 3.
+            FinishCentrifyZoneDate: "{{ '%d.%m.%Y %H:%M:%S' | strftime( ( ansible_date_time.epoch | int ) + ( 3600 * 3 )  ) }}"

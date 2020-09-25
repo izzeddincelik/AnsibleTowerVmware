@@ -1,0 +1,12 @@
+    - name: DNS ZONE Records   
+      hosts: all   
+      tasks:     
+        - name: Add license for Centrify Zone
+          command: adlicense -l
+        - name: Join VM to Zone       
+          command: adjoin -f -c "{{ domain_name }}/{{ RHEL_centrify__zone_path }}" -z "{{ domain_name }}/Centrify/Zones/Universal/{{ vm_zone }}" -u "{{ centrify_username }}" --password "{{ centrify_password }}" "{{ domain_name }}"         
+          ignore_errors: yes       
+          no_log: true       
+          register: result   
+        - name: Audit Online       
+          command: dacontrol -e
